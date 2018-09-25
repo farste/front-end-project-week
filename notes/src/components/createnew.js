@@ -5,8 +5,7 @@ const CreateNew = (props) => {
 
     return (
         
-      <form onSubmit={props.newNote}>
-        {console.log(props)}
+     <form onSubmit={props.newNote}>
         <input
           onChange={props.handleInputChange}
           placeholder="title"
@@ -22,8 +21,8 @@ const CreateNew = (props) => {
         <input
           onChange={props.handleInputChange}
           placeholder="body"
-          value={props.textBody}
-          name="textBody"
+          value={props.content}
+          name="content"
         />
         <button>Submit</button>
       </form>

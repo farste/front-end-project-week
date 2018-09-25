@@ -22,8 +22,8 @@ const EditView = (props) => {
         <input
           onChange={props.handleInputChange}
           placeholder="body"
-          value={props.textBody}
-          name="textBody"
+          value={props.content}
+          name="content"
         />
         <button>Submit</button>
       </form>

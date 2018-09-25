@@ -7,28 +7,15 @@ import CreateNew from "./components/CreateNew";
 import NoteView from "./components/NoteView";
 import EditView from "./components/EditView";
 import "./App.css";
+import axios from "../../node_modules/axios";
+const host = "http://localhost:3300/api/notes";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      noteList: [
-        {
-          _id: 0,
-          tags: ["test tag", "test tag1"],
-          title: "test title",
-          textBody: "test body"
-        },
-        {
-          _id: 1,
-          tags: ["test tag 2", "test tag 3"],
-          title: "test title 1",
-          textBody: "test body 1"
-        }
-      ],
-      tags: [],
       title: "",
-      textBody: ""
+      content: ""
     };
   }
 
@@ -38,64 +25,33 @@ class App extends Component {
 
   newNote = e => {
     e.preventDefault();
-    const noteList = [
-      ...this.state.noteList,
-      {
-        _id: Date.now(),
-        tags: this.state.tags,
-        title: this.state.title,
-        textBody: this.state.textBody
-      }
-    ];
-    console.log("!!!", noteList);
-    this.setState({
-      noteList,
-      tags: [],
-      title: "",
-      textBody: ""
-    });
+    axios.post(host, this.state).then(
+      console.log(this.state),
+      this.setState({
+        title: "",
+        content: ""
+      }),
+    );
   };
 
   editNote = e => {
     e.preventDefault();
-    const noteList = [
-      ...this.state.noteList
-    ];
-    const note = noteList.find(
-      eachNote => eachNote._id === Number(this.state.noteList._id)
+    axios.put(host, this.state).then(
+      this.setState({
+        title: "",
+        content: ""
+      })
     );
-    const i = noteList.indexOf(note)
-    noteList.splice(i, 1,
-      {
-        _id: Date.now(),
-        tags: this.state.tags,
-        title: this.state.title,
-        textBody: this.state.textBody
-      }
-    )
-    this.setState({
-      noteList,
-      tags: [],
-      title: "",
-      textBody: ""
-    });
-  }
+  };
   deleteNote = e => {
     e.preventDefault();
-    const noteList = [
-      ...this.state.noteList
-    ];
-    const note = noteList.find(
-      eachNote => eachNote._id === Number(this.state.noteList._id)
+    axios.delete(host).then(
+      this.setState({
+        title: "",
+        content: ""
+      })
     );
-    const i = noteList.indexOf(note)
-    noteList.splice(i, 1
-    )
-    console.log(noteList)
-    this.setState({
-      noteList
-    });
-  }
+  };
 
   render() {
     return (
@@ -110,7 +66,7 @@ class App extends Component {
               tags={this.state.noteList.tags}
               _id={this.state.noteList._id}
               title={this.state.noteList.title}
-              textBody={this.state.noteList.textbody}
+              content={this.state.noteList.content}
               noteList={this.state.noteList}
             />
           )}
@@ -125,7 +81,7 @@ class App extends Component {
               handleInputChange={this.handleInputChange}
               noteList={this.state.noteList}
               newNote={this.newNote}
-              textBody={this.state.textBody}
+              content={this.state.content}
               tags={this.state.tags}
               title={this.state.title}
             />
@@ -136,7 +92,11 @@ class App extends Component {
           exact
           path="/notes/:id"
           render={props => (
-            <NoteView {...props} noteList={this.state.noteList} deleteNote={this.deleteNote}/>
+            <NoteView
+              {...props}
+              noteList={this.state.noteList}
+              deleteNote={this.deleteNote}
+            />
           )}
         />
 
@@ -148,7 +108,7 @@ class App extends Component {
               {...props}
               noteList={this.state.noteList}
               title={this.state.title}
-              textBody={this.state.textBody}
+              content={this.state.content}
               tags={this.state.tags}
               handleInputChange={this.handleInputChange}
               editNote={this.editNote}

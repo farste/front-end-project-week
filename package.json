@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "axios": "^0.18.0",
     "router": "^1.3.3"
   }
 }

@@ -10,7 +10,7 @@ const ListView = props => {
             <div key={i}>
               <div>{notes.tags}</div>
               <div>{notes.title}</div>
-              <div>{notes.textBody}</div>
+              <div>{notes.content}</div>
             </div>
           </Link>
         );
