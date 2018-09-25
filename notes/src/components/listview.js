@@ -1,7 +1,39 @@
 import React from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
-const ListView = props => {
+class ListView extends React.Component {
+  state = {
+    notes:[]
+  };
+
+  render() {
+    return (
+      <div>
+        <div>
+            {this.state.notes.map(note => (
+                <Link to={`/notes/${note.id}`}><div key={note.id}>{note.title} {note.content}</div></Link>
+            ))}
+        </div>
+      </div>
+    );
+  }
+
+  componentDidMount() {
+    axios
+      .get("http://localhost:3300/api/notes")
+      .then(res => {
+        console.log('notes Data:', res.data)
+        this.setState({notes: res.data})
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
+}
+
+
+/* const ListView = props => {
   return (
     <div>
       {props.noteList.map((notes, i) => {
@@ -17,6 +49,6 @@ const ListView = props => {
       })}
     </div>
   );
-};
+}; */
 
 export default ListView;

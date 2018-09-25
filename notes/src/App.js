@@ -30,7 +30,7 @@ class App extends Component {
       this.setState({
         title: "",
         content: ""
-      }),
+      })
     );
   };
 
@@ -47,8 +47,8 @@ class App extends Component {
     e.preventDefault();
     axios.delete(host).then(
       this.setState({
-        title: "",
-        content: ""
+            title: "",
+            content: ""    
       })
     );
   };
@@ -63,11 +63,8 @@ class App extends Component {
           render={props => (
             <ListView
               {...props}
-              tags={this.state.noteList.tags}
-              _id={this.state.noteList._id}
-              title={this.state.noteList.title}
-              content={this.state.noteList.content}
-              noteList={this.state.noteList}
+              title={this.state.title}
+              content={this.state.content}
             />
           )}
         />
@@ -79,10 +76,8 @@ class App extends Component {
             <CreateNew
               {...props}
               handleInputChange={this.handleInputChange}
-              noteList={this.state.noteList}
               newNote={this.newNote}
               content={this.state.content}
-              tags={this.state.tags}
               title={this.state.title}
             />
           )}
@@ -91,13 +86,7 @@ class App extends Component {
         <Route
           exact
           path="/notes/:id"
-          render={props => (
-            <NoteView
-              {...props}
-              noteList={this.state.noteList}
-              deleteNote={this.deleteNote}
-            />
-          )}
+          render={props => <NoteView {...props} deleteNote={this.deleteNote} />}
         />
 
         <Route
@@ -106,10 +95,8 @@ class App extends Component {
           render={props => (
             <EditView
               {...props}
-              noteList={this.state.noteList}
               title={this.state.title}
               content={this.state.content}
-              tags={this.state.tags}
               handleInputChange={this.handleInputChange}
               editNote={this.editNote}
             />
