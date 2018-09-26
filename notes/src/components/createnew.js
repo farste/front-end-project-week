@@ -14,12 +14,6 @@ const CreateNew = (props) => {
         />
         <input
           onChange={props.handleInputChange}
-          placeholder="tags"
-          value={props.tags}
-          name="tags"
-        />
-        <input
-          onChange={props.handleInputChange}
           placeholder="body"
           value={props.content}
           name="content"

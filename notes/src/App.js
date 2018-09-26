@@ -26,7 +26,6 @@ class App extends Component {
   newNote = e => {
     e.preventDefault();
     axios.post(host, this.state).then(
-      console.log(this.state),
       this.setState({
         title: "",
         content: ""
@@ -34,18 +33,19 @@ class App extends Component {
     );
   };
 
-  editNote = e => {
+  editNote = (e, id) => {
     e.preventDefault();
-    axios.put(host, this.state).then(
+    console.log(id)
+    axios.put(`${host}/${id}`, this.state).then(
       this.setState({
         title: "",
         content: ""
       })
     );
   };
-  deleteNote = e => {
+  deleteNote = (e, id) => {
     e.preventDefault();
-    axios.delete(host).then(
+    axios.delete(`${host}/${id}`, id).then(
       this.setState({
             title: "",
             content: ""    

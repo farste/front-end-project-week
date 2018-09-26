@@ -12,7 +12,7 @@ class ListView extends React.Component {
       <div>
         <div>
             {this.state.notes.map(note => (
-                <Link to={`/notes/${note.id}`}><div key={note.id}>{note.title} {note.content}</div></Link>
+                <Link to={`/notes/${note.id}`}><div key={note.id}> {note.title} {note.content}{console.log(note.id)}</div></Link>
             ))}
         </div>
       </div>
@@ -23,7 +23,6 @@ class ListView extends React.Component {
     axios
       .get("http://localhost:3300/api/notes")
       .then(res => {
-        console.log('notes Data:', res.data)
         this.setState({notes: res.data})
       })
       .catch(err => {

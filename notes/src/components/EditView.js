@@ -5,19 +5,12 @@ const EditView = (props) => {
 
     return (
         
-      <form onSubmit={props.editNote}>
-        {console.log(props)}
+      <form onSubmit={(e) => props.editNote(e, props.match.params.id)}>
         <input
           onChange={props.handleInputChange}
           placeholder="title"
           value={props.title}
           name="title"
-        />
-        <input
-          onChange={props.handleInputChange}
-          placeholder="tags"
-          value={props.tags}
-          name="tags"
         />
         <input
           onChange={props.handleInputChange}
